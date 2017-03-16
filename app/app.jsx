@@ -7,9 +7,9 @@ $(document).foundation();
 
 require('style-loader!css-loader!sass-loader!applicationStyles');
 
-ReactDOM.render(
-    <p>Redux example</p>,
-    document.getElementById('app')
-);
+// ReactDOM.render(
+//     <p>Redux example</p>,
+//     document.getElementById('app')
+// );
 
 require('./redux-todo-example');
