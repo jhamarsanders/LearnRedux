@@ -12,4 +12,4 @@ require('style-loader!css-loader!sass-loader!applicationStyles');
 //     document.getElementById('app')
 // );
 
-require('./redux-todo-example');
+require('./redux-example');
