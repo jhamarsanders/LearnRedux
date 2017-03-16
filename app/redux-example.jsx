@@ -2,15 +2,6 @@ var redux = require('redux');
 
 console.log('Starting redux example');
 
-var stateDefault = {
-    name: 'Anonymous',
-    hobbies: [],
-    movies: []
-};
-
-var nextHobbyId = 1;
-var nextMovieId = 1;
-
 var oldReducer = (state = stateDefault, action) => {
 
     switch (action.type){
@@ -66,6 +57,14 @@ var nameReducer = (state = 'Anonymous', action) => {
   }
 };
 
+var changeName = (name) => {
+    return {
+        type: 'CHANGE_NAME',
+        name
+    }
+};
+
+var nextHobbyId = 1;
 var hobbiesReducer = (state = [], action) => {
     switch(action.type){
         case 'ADD_HOBBY':
@@ -84,6 +83,21 @@ var hobbiesReducer = (state = [], action) => {
     }
 };
 
+var addHobby = (hobby) => {
+    return {
+        type: 'ADD_HOBBY',
+        hobby
+    }
+};
+
+var removeHobby = (id) => {
+    return {
+        type: 'REMOVE_HOBBY',
+        id
+    }
+};
+
+var nextMovieId = 1;
 var moviesReducer = (state = [], action) => {
     switch(action.type){
         case 'ADD_MOVIE':
@@ -98,6 +112,21 @@ var moviesReducer = (state = [], action) => {
             return state.filter((movie) => movie.id !== action.id)
         default:
             return state;
+    }
+};
+
+var addMovie = (title, genre) => {
+    return {
+        type: 'ADD_MOVIE',
+        title,
+        genre
+    }
+};
+
+var removeMovie = (id) => {
+    return {
+        type: 'REMOVE_MOVIE',
+        id
     }
 };
 
@@ -124,46 +153,22 @@ store.subscribe(() => {
 var currentState = store.getState();
 console.log('currentState', currentState);
 
-store.dispatch({
-    type: 'CHANGE_NAME',
-    name: 'Jhamar'
-});
+store.dispatch(changeName('Laila'));
 
-store.dispatch({
-    type: 'ADD_HOBBY',
-    hobby: 'Running'
-});
-store.dispatch({
-    type: 'ADD_HOBBY',
-    hobby: 'Walking'
-});
+store.dispatch(changeName('Jhamar'));
 
-store.dispatch({
-    type: 'REMOVE_HOBBY',
-    id: 2
-});
+store.dispatch(addHobby('Running'));
 
-store.dispatch({
-    type: 'CHANGE_NAME',
-    name: 'Michael'
-});
+store.dispatch(addHobby('Walking'));
 
-store.dispatch({
-    type: 'ADD_MOVIE',
-    title: 'The Godfather',
-    genre: 'Drama'
-});
-store.dispatch({
-    type: 'ADD_MOVIE',
-    title: 'Men In Black',
-    genre: 'Adventure'
-});
-store.dispatch({
-    type: 'ADD_MOVIE',
-    title: 'Get Out',
-    genre: 'Horror'
-});
-store.dispatch({
-    type: 'REMOVE_MOVIE',
-    id: 1
-});
+store.dispatch(removeHobby(2));
+
+store.dispatch(changeName('Michael'));
+
+store.dispatch(addMovie('The Godfather', 'Drama'));
+
+store.dispatch(addMovie('Men In Black', 'Adventure'));
+
+store.dispatch(addMovie('Get Out', 'Horror'));
+
+store.dispatch(removeMovie(1));
